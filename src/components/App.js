@@ -75,7 +75,7 @@ function App() {
         </header>
         <main>
           <Routes>
-            <Route path="/" element={
+            <Route exact path="/" element={
               <BookShelf 
                 books={books} 
                 toggleIsComplete={toggleIsComplete}
