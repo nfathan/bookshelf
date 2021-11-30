@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react'
 import { 
-  BrowserRouter, 
+  // BrowserRouter,
+  // HashRouter, 
   Routes, 
-  Route } from "react-router-dom";
+  Route,
+  useNavigate } from "react-router-dom";
 import '../App.scss';
 import AddBook from './AddBook';
 import AppHeader from './AppHeader';
 import BookShelf from './BookShelf';
-import EditBook from "./EditBook";
-import Footer from "./Footer";
+import EditBook from './EditBook';
+import Footer from './Footer';
+import NotFound from './NotFound';
 
 function App() {
   // Setting state (shared state)
@@ -21,6 +24,8 @@ function App() {
   const [checked, setChecked] = useState(false)
   const [currentBook, setCurrentBook] = useState({})
 
+  let navigate = useNavigate()
+
   // CRUD operations
   const addBook = (book) => {
     book.id = books.length + 1
@@ -32,8 +37,8 @@ function App() {
     setBooks(books.filter(book => book.id !== id))
   }
 
-  const editBook = (book, navigateToEditBook) => {
-    navigateToEditBook()
+  const editBook = (book) => {
+    navigate('editbook')
     setCurrentBook({
       id: book.id, 
       title: book.title, 
@@ -68,14 +73,14 @@ function App() {
   }, [books])
 
   return (
-    <BrowserRouter>
+    // <HashRouter>
       <div className="App">
         <header>
           <AppHeader />
         </header>
         <main>
           <Routes>
-            <Route exact path="/" element={
+            <Route path="/" element={
               <BookShelf 
                 books={books} 
                 toggleIsComplete={toggleIsComplete}
@@ -83,7 +88,7 @@ function App() {
                 editBook={editBook}
               />} 
             />
-            <Route path="Addbook" element={
+            <Route path="addbook" element={
               <AddBook 
                 books={books}
                 checked={checked}
@@ -91,19 +96,20 @@ function App() {
                 addBook={addBook}
               />} 
             />
-            <Route path="/EditBook" element={
+            <Route path="editbook" element={
               <EditBook 
                 currentBook={currentBook}
                 updateBook={updateBook}
               />}
             />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <footer>
           <Footer />
         </footer>
       </div>
-    </BrowserRouter>
+    // </HashRouter>
   );
 }
 
