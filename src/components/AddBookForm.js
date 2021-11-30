@@ -79,7 +79,7 @@ function AddBookForm(props) {
         />
         <LinkTo 
           to="/" 
-          innerText="Kembali" 
+          innerText="Home" 
           className="cancel m-10"
         />
       </div>

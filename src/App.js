@@ -5,13 +5,13 @@ import {
   Routes, 
   Route,
   useNavigate } from "react-router-dom";
-import '../App.scss';
-import AddBook from './AddBook';
-import AppHeader from './AppHeader';
-import BookShelf from './BookShelf';
-import EditBook from './EditBook';
-import Footer from './Footer';
-import NotFound from './NotFound';
+import './App.scss';
+import AddBook from './components/AddBook';
+import AppHeader from './components/AppHeader';
+import BookShelf from './components/BookShelf';
+import EditBook from './components/EditBook';
+import Footer from './components/Footer';
+import NotFound from './components/NotFound';
 
 function App() {
   // Setting state (shared state)
