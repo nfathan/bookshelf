@@ -1,20 +1,20 @@
-import BookListCompleted from "./BookListCompleted"
-import BookListUncompleted from "./BookListUncompleted"
-import LinkTo from "./LinkTo"
-import SearchBar from "./SearchBar"
+import {TiPlusOutline} from 'react-icons/ti'
+import BookListCompleted from './BookListCompleted'
+import BookListUncompleted from './BookListUncompleted'
+import LinkTo from './LinkTo'
+import SearchBar from './SearchBar'
 
 function BookShelf(props) {
   return (
     <div className="BookShelf card shadow-dark container">
-      
-        <h1 className="heading">RAK BUKU</h1>
-      
+      <h2 className="heading mb-20">RAK BUKU</h2>
       <div className="flex jcsb">
         <SearchBar />
         <LinkTo 
-          to="/AddBook"
-          innerText="Tambah Buku" 
-          className="add"
+          to="addbook" 
+          className="add" 
+          // icon={TiPlusOutline}
+          innerText="Tambah Buku"
         />
       </div>
       <BookListUncompleted 
