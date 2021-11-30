@@ -1,9 +1,9 @@
-import AddBookForm from "./AddBookForm"
+import AddBookForm from './AddBookForm'
 
 function AddBook(props) {
   return (
       <div className="form-container card shadow-dark container">
-        <h1 className="heading">TAMBAH BUKU</h1>
+        <h2 className="heading">TAMBAH BUKU</h2>
         <AddBookForm 
           books={props.books}
           checked={props.checked}
