@@ -1,26 +1,37 @@
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+// import { useState } from 'react'
+import { useGlobalContext } from '../context'
 import LinkTo from './LinkTo'
 import SubmitButton from './SubmitButton'
 
 function EditBookForm(props) {
+  const {
+    currentBook,
+    books, 
+    setCurrentBook,
+    setBooks,
+  } = useGlobalContext() 
+  // const [book, setBook] = useState(currentBook)
   let navigate = useNavigate()
   
-  const [book, setBook] = useState(props.currentBook)
-
   const handleInputChange = (event) => {
     const {name, value} = event.target
 
-    setBook({...book, [name]: value})
+    setCurrentBook({...currentBook, [name]: value})
   }
   
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    props.updateBook(book.id, book)
+    updateBook(currentBook.id, currentBook)
     navigate("/")
   }
 
+  // CRUD operations (update book)
+  const updateBook = (id, updateBook) => {
+    setBooks(books.map(book => (book.id === id ? updateBook : book)))
+  }
+  
   return (
     <form className="AddBookForm" onSubmit={handleSubmit}>
       <div className="form-group">
@@ -29,7 +40,7 @@ function EditBookForm(props) {
           type="text"
           id="titleBook"
           name="title"
-          value={book.title}
+          value={currentBook.title}
           onChange={handleInputChange}
           required
         />
@@ -40,7 +51,7 @@ function EditBookForm(props) {
           type="text"
           id="author"
           name="author"
-          value={book.author}
+          value={currentBook.author}
           onChange={handleInputChange}
           required
         />
@@ -51,7 +62,7 @@ function EditBookForm(props) {
           type="number"
           id="year"
           name="year"
-          value={book.year}
+          value={currentBook.year}
           onChange={handleInputChange}
         />
       </div>
@@ -61,7 +72,7 @@ function EditBookForm(props) {
           type="checkbox" 
           id="completeCheckbox" 
           name="isComplete"
-          checked={book.isComplete}
+          checked={currentBook.isComplete}
           onChange={handleInputChange}
         />
       </div>

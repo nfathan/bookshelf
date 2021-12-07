@@ -1,10 +1,19 @@
-import { useState, useEffect } from 'react'
+// import { useState, useEffect } from 'react'
+import { useGlobalContext } from '../context'
 import LinkTo from './LinkTo'
 import SubmitButton from './SubmitButton'
 
 function AddBookForm(props) {
   // Setting state
-  const [book, setBook] = useState({})    
+  // const [book, setBook] = useState({})
+  const {
+    book,
+    books, 
+    checked,
+    setBook,
+    setChecked,
+    setBooks 
+  } = useGlobalContext()    
 
   // handle inputs change
   const handleInputChange = (event) => {
@@ -13,20 +22,27 @@ function AddBookForm(props) {
     const checked = event.target.checked
 
     setBook({...book, [name]: value})
-    props.setChecked(checked)
+    setChecked(checked)
   }
 
   // handle submit 
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    props.addBook(book)
+    addBook(book)
   }
 
-  useEffect(() => {
-    localStorage.setItem("books_data", JSON.stringify(props.books))
-    console.log(props.books)
-  }, [props.books])
+  // CRUD operations (add book)
+  const addBook = (book) => {
+    book.id = books.length + 1
+    book.isComplete = checked
+    setBooks([...books, book])
+  }
+
+  // useEffect(() => {
+  //   localStorage.setItem("books_data", JSON.stringify(props.books))
+  //   console.log(props.books)
+  // }, [props.books])
 
   return (
     <form className="AddBookForm" onSubmit={handleSubmit}>
@@ -68,7 +84,7 @@ function AddBookForm(props) {
           type="checkbox" 
           id="completeCheckbox" 
           name="isComplete"
-          checked={props.checked}
+          checked={checked}
           onChange={handleInputChange}
         />
       </div>
